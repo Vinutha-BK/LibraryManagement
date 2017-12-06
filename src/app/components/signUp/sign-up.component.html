@@ -1,0 +1,47 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Register an Account
+    </div>
+<div class="panel-body">
+<form class="form-horizontal">
+    <div class="col-md-8" >
+        <label>Username
+            <input class="form-control" type="text" placeholder="Enter Email Address" id="email" 
+                [(ngModel)]="email" name="email" required #em="ngModel">
+            <div [hidden]="em.valid || em.pristine" class="alert callout">
+                Email is required
+            </div>
+        </label>
+    </div>
+
+    <div class="col-md-8">
+      <label>Password
+        <input class="form-control" type="password" placeholder="Enter Password" id="password1" 
+            [(ngModel)]="password1" name="password1" required #pwd1="ngModel">
+        <div [hidden]="pwd1.valid || pwd1.pristine" class="alert callout">
+          Password required
+        </div>
+      </label>
+    </div>
+
+    <div class="col-md-8">
+      <label>Confirm 
+        <input class="form-control" type="password" placeholder="Confirm Password" id="password2" 
+            [(ngModel)]="password2" name="password2" required #pwd2="ngModel">
+        <div [hidden]="pwd2.valid || pwd2.pristine" class="alert callout">
+          Confirm Password
+        </div>
+      </label>
+    </div>
+
+    <div *ngIf="passwordFail" class="alert callout">
+      Passwords Do Not Match
+    </div>
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-2">
+        <a class="btn btn-primary" (click)="signUp()">Sign Up</a>
+        <a class="btn btn-primary" (click)="cancel()">Cancel</a>
+      </div>
+    </div>    
+</form>
+</div>

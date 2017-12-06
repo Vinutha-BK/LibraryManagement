@@ -1,0 +1,80 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+    <!-- Filter the Books   -->
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-12'>Filter by:</div>
+            <div class='col-md-3'>
+                <input type='text' placeholder="title" [(ngModel)]='title' />
+            </div>
+            <div class='col-md-3'>
+                <input type='text' placeholder="author" [(ngModel)]='author' />
+            </div>
+            <div class='col-md-3'>
+                <input type='text' placeholder="genre" [(ngModel)]='genre' />
+            </div>
+
+        </div>
+        <div class='row' *ngIf='listFilter'>
+            <div class='col-md-6'>
+                <h3>Filtered by: {{listFilter}} </h3>
+            </div>
+        </div>
+
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+        <div class='table-responsive'>
+            <table class='table' *ngIf='books && books.length'>
+                <thead>
+                    <tr>
+                        <th>
+                            <button class='btn btn-primary' (click)='toggleImage()'>
+                                {{showImage ? 'Hide' : 'Show'}} Image
+                            </button>
+                        </th>
+                        <th>Book Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>User Id</th>
+                        <th>User Name</th>
+                        <th>Issued Date</th>
+                        <th>Due Date</th>
+                        <th>Description</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let book of books | bookFilter:title:author:userId:listFilter:listFilter:genre'>
+                        <td>
+                            <img [src]='book.thumbnailImage' [title]='book.bookTitle | uppercase' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
+                        </td>
+                        <td><a [routerLink]="['/book', book.id]">
+                            {{book.bookTitle}}
+                            </a>
+                        </td>
+                        <th>{{book.author}}</th>
+                        <td>{{ book.isbn}}</td>
+                        <td>{{ book.userId }}</td>
+                        <td>{{ book.userName }}</td>
+                        <td>{{ book.issuedDateTime }}</td>
+                        <td>{{book.renewDateTime}}</td>
+                        <td>{{ book.description }}</td>
+                        <td>
+                            <!--<div>
+                      <rating [(ngModel)]="rateValueExample1" max="10" stateOn="glyphicon-heart"
+                              stateOff="glyphicon-ok-circle"></rating>
+                    </div>-->
+                            <ai-star [rating]='book.starRating' (ratingClicked)='onRatingClicked($event)'>
+                            </ai-star>
+                        </td>
+                        <a *ngIf="!userSVC.admin" class="btn btn-primary" (click)="returnBook(book)">
+                                Return
+                            </a>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

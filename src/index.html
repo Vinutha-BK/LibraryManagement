@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AnytimeLibrary</title>
+  <base href="/">
+
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta property="og:url"           content="https://anytimelibrary.firebaseapp.com/__/auth/handler" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="AnytimeLibrary" />
+  <meta property="og:description"   content="Sharing book detail" />
+  <meta property="og:image"         content="http://www.your-domain.com/path/image.jpg" />
+
+    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <!--<link href="app/app.component.css" rel="stylesheet" />-->
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+    <!-- Configure SystemJS -->
+    <!--<script src="systemjs.config.js"></script>-->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+
+
+   
+</head>
+<body>
+  <pm-app>Loading...</pm-app>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '130242074198628',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+</body>
+</html>

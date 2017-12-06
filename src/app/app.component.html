@@ -1,0 +1,22 @@
+<div>
+    <nav class='navbar navbar-inverse'>
+        <div class='container-fluid'>
+            <a class='navbar-brand' style="color: lightgreen">{{pageTitle}}</a>
+            <ul class='nav navbar-nav'>
+                <li><a [routerLink]="['/anytimelibrary']">Home</a></li>
+                <li *ngIf="userSVC.userLoggedIn"><a [routerLink]="['/books']">Book List</a></li>
+                <li *ngIf="userSVC.userLoggedIn && !userSVC.admin"><a [routerLink]="['/mybooks']">My Books</a></li>
+                <li><a *ngIf="userSVC.userLoggedIn && userSVC.admin" [routerLink]="['/bookEdit/0']">Add Book</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <a *ngIf="userSVC.userLoggedIn" class='navbar-brand' style="color: lightgreen">{{userSVC.loggedInUser}}</a>
+                <li *ngIf="!userSVC.userLoggedIn"><a [routerLink]="['/signup']"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li *ngIf="!userSVC.userLoggedIn"><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li *ngIf="userSVC.userLoggedIn"><a (click)="logout()"><span class="glyphicon glyphicon-user"></span> Sign Out</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class='container'>
+        <router-outlet></router-outlet>
+    </div>
+</div>

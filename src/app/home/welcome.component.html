@@ -1,0 +1,27 @@
+﻿<div class="panel panel-primary">
+
+    <div class="panel-body">
+        <div style="font-size: 32px;color: lightseagreen"> India's  Anytime Library</div>
+        
+        <table class="table" *ngIf="userSVC.userLoggedIn">
+            <tbody>
+                <tr>
+                    <td><b>Name:</b></td>
+                    <td> {{ userSVC.authUser.displayName}}</td>
+                </tr>
+                <tr>
+                    <td><b>Email:</b></td>
+                    <td>{{ userSVC.authUser.email}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-4">
+            <!--<img src="{{userSVC.authUser.picture}}" />-->
+        </div>
+        <div >
+           <img class="img-responsive center-block" src="./src/app/home/books.jpg" style="max-height:500px;padding-bottom:50px;width:800px;height:800px">
+        </div>
+
+    </div>
+
+</div>

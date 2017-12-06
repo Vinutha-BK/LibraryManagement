@@ -1,0 +1,114 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+
+    <!-- Filter the Books   -->
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-12'>Filter by:</div>
+            <div class='col-md-3'>
+                <input type='text' placeholder="title" [(ngModel)]='title' />
+            </div>
+            <div class='col-md-3'>
+                <input type='text' placeholder="author" [(ngModel)]='author' />
+            </div>
+            <div class='col-md-3' *ngIf="userSVC.admin">
+                <input type='text' placeholder="userId" [(ngModel)]='userId' />
+            </div>
+            <div class='col-md-3' *ngIf="userSVC.admin">
+                <input type='text' placeholder="userName" [(ngModel)]='userName' />
+            </div>
+            <div class='col-md-3' *ngIf="userSVC.admin">
+                <input type='text' placeholder="issueDate" [(ngModel)]='issueDate' />
+            </div>
+            <div class='col-md-3'>
+                <input type='text' placeholder="genre" [(ngModel)]='genre' />
+            </div>
+        </div>
+        <div class='row' *ngIf='title'>
+            <div class='col-md-6'>
+                <h3>Filtered by: {{title}} </h3>
+            </div>
+        </div>
+
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+        <div class='table-responsive'>
+            <table class='table' *ngIf='books && books.length'>
+                <thead>
+                    <tr>
+                   <th>
+                            <!--<button class='btn btn-primary' (click)='toggleImage()'>
+                                {{showImage ? 'Hide' : 'Show'}} Image
+                            </button>-->
+                        </th>
+                        <th>Book Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>User Id</th>
+                        <th>User Title</th>
+                        <th *ngIf="userSVC.admin">Issued Date</th>
+                        <th *ngIf="userSVC.admin">Due Date</th>
+                        <th>Description</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let book of books | bookFilter:author:title:userId:userName:issueDate:genre'>
+                        <td>
+                            <img [src]='book.thumbnailImage' [title]='book.bookTitle | uppercase' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
+                        </td>
+                        <td><a [routerLink]="['/book', book.id]">
+                            {{book.bookTitle}}
+                            </a>
+                        </td>
+                        <th>{{book.author}}</th>
+                        <td>{{ book.isbn}}</td>
+                        <td>{{ book.userId }}</td>
+                        <td>{{ book.userName }}</td>
+                        <td *ngIf="userSVC.admin">{{ book.issuedDateTime }}</td>
+                        <td *ngIf="userSVC.admin">{{book.renewDateTime}}</td>
+                        <td>{{ book.description }}</td>
+                        <td>
+                            <!--<div>
+                      <rating [(ngModel)]="rateValueExample1" max="10" stateOn="glyphicon-heart"
+                              stateOff="glyphicon-ok-circle"></rating>
+                    </div>-->
+                            <ai-star [rating]='book.starRating' (ratingClicked)='onRatingClicked($event)'>
+                            </ai-star>
+                        </td>
+                        <td *ngIf="userSVC.admin">
+                            <a class="btn btn-primary" [routerLink]="['/bookEdit', book.id]">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" [routerLink]="['/book', book.id]">
+                                View
+                            </a>
+                        </td>
+                        <td>
+                            <a *ngIf="!userSVCadmin && book.userId === ''" class="btn btn-primary" (click)="issueBook(book)">
+                                Issue
+                            </a>
+                        </td>
+                        <td>
+                            <div class="fb-share-button" data-href="https://anytimelibrary.firebaseapp.com/__/auth/handler" data-layout="button" data-size="small"
+                                data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fanytimelibrary.firebaseapp.com%2F__%2Fauth%2Fhandler&amp;src=sdkpreparse">Share</a></div>
+                        </td>
+                        <td>
+                            <div class="fb-like" data-href="https://anytimelibrary.firebaseapp.com/__/auth/handler" data-layout="standard" data-action="like"
+                                data-show-faces="true">
+                            </div>
+
+                        </td>
+                        <td>
+                            <a class="twitter-share-button" href="https://twitter.com/intent/tweet">
+Tweet</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
